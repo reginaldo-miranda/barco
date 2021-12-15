@@ -2,17 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes teste
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+
+// fiz ate a aula 3 completa 
+
+// aula 4 proxima aula https://www.youtube.com/watch?v=otmfl_9dh-s&ab_channel=TheCoderBr 
