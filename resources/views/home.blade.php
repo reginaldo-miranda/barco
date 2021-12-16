@@ -15,9 +15,9 @@
         <a hert="#" class="navbar-brand">MyShop</a>
         <div class="collapse navbar-collapse">
             <div class="navbar-nav">
-                <a class="nav-link" hert="#">Home</a>
-                <a class="nav-link" hert="#">Categoria</a>
-                <a class="nav-link" hert="#">Cadastrar</a>     
+                <a class="nav-link" href="{{ route('home')}}">Home</a>
+                <a class="nav-link" href="{{ route('categoria')}}">Categoria</a>
+                <a class="nav-link" href="{{ route('cadastrar')}}">Cadastrar</a>     
             </div>
         </div>
         <a href="#" class="btn btn-sm"><i class="fa fa-shopping-cart"></i></a>
@@ -29,7 +29,7 @@
                     <img src="{{ asset('imagens/produtos/exemplo01.jpg') }}" class="card-img-top"/>
                     <div class="card-body">
                         <h6 class="card-title">Produto 1</h6>
-                        <a hert="#"  class="btn btn-sm-secundary">Adicionar Iten </a>
+                        <a href="#" class="btn btn-sm-secondary">Adicionar Iten </a>
                     </div>
                 </div>
              </div>   
@@ -38,7 +38,7 @@
                     <img src="{{ asset('imagens/produtos/exemplo02.jpg') }}" class="card-img-top"/>
                      <div class="card-body">
                         <h6 class="card-title">Produto 2</h6>
-                        <a hert="#"  class="btn btn-sm-secundary">Adicionar Iten </a>
+                        <a href="#"  class="btn btn-sm-secondary">Adicionar Iten </a>
                     </div>
                 </div>
              </div>  
@@ -47,7 +47,7 @@
                     <img src="{{ asset('imagens/produtos/exemplo03.jpg') }}" class="card-img-top"/>
                      <div class="card-body">
                         <h6 class="card-title">Produto 3</h6>
-                        <a hert="#"  class="btn btn-sm-secundary">Adicionar Iten </a>
+                        <a href="#"  class="btn btn-sm-secondary">Adicionar Iten </a>
                     </div>
                 </div>
              </div>  
