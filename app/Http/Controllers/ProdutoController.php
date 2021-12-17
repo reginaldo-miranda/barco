@@ -45,9 +45,31 @@ class ProdutoController extends Controller
 
          if($prod){
               $carrinho = session('cart',[]);
-              array_push($carrinho, $prod);
+               array_push($carrinho, $prod);
+              session(['cart' => $carrinho]);
            
          }
          return redirect()->route('home');
+     }
+
+     public function verCarrinho(Request $request){
+       $carrinho = session('cart', []);
+       
+       $data = [ 'cart' => $carrinho ];
+
+       return view('carrinho',$data);
+
+     }
+
+     public function excluirCarrinho( $indice, Request $request){
+
+       $carrinho = session('cart', []);
+       if(isset($carrinho[$indice])){
+          unset($carrinho[$indice]);
+
+       }
+       session(['cart' => $carrinho]);
+       return redirect()->route("ver_carrinho");
+
      }
 }
