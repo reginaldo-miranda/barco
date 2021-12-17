@@ -19,12 +19,16 @@ class RModel extends Model
     }
 
     public function save(array $options = []){
+    
         try {
         
             if(!$this->beforeSave()){
                return false;
+               dd('falso');
             }
+         
            return parent::save($options);
+            
 
         } catch (\Exception $e ) {
             throw new \Exception($e->getMessage());

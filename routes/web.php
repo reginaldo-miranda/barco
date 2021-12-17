@@ -29,6 +29,6 @@ Route::match(['get','post'], '/{indice}/excluircarrinho',[ProdutoController::cla
 
 // fiz ate a aula 3 completa 
 
-// aula 9 proxima aula 5,14 https://www.youtube.com/watch?v=7JjJJgkiX8E&ab_channel=TheCoderBr
+// aula 14 
 
 
