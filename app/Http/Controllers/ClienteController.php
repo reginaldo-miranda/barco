@@ -21,9 +21,11 @@ class ClienteController extends Controller
         $usuario->login = $request->input('cpf', "");
        
         $endereco = new Endereco($values);
+        $endereco->fill($values);
         $endereco->logradouro = $request->input('endereco' , "");
      
        try {
+          
          $usuario->save();
          $endereco->usuario_id = $usuario->id; // relacionamento das tabelas
          dd('salvo usuario') ;

@@ -24,9 +24,9 @@ class RModel extends Model
         
             if(!$this->beforeSave()){
                return false;
-               dd('falso');
+               
             }
-         
+           
            return parent::save($options);
             
 
