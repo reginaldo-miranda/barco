@@ -7,6 +7,7 @@ namespace App\Models;
 class Endereco extends RModel
 {
     protected $table = "endereco";
+    protected $keyType = 'int';
 
-    protected $fillable = ['logradouro' ,'complemento' , 'numero' , 'cep' , 'estado'];
+    protected $fillable = ['logradouro' , 'numero' , 'cidade',  'estado' , 'cep' , 'complemento'];
 }

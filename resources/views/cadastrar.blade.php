@@ -13,7 +13,7 @@
         </div>  
         <div class="col-6">
             <div class="form-group">
-              Email:<input type="email" name="Email" class="form-control" />
+              Email:<input type="email" name="email" class="form-control" />
             </div>
         </div>   
         <div class="col-6">

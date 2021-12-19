@@ -8,7 +8,7 @@ use App\models\Endereco;
 
 class ClienteController extends Controller
 {
-    public function cadastrar(Request $request){
+    public function cadastrar(){
         $data = [];
         return view("cadastrar", $data);
      }
@@ -16,19 +16,21 @@ class ClienteController extends Controller
      public function cadastrarCliente(Request $request){
 
         $values = $request->all();
-        $usuario = new Usuario();
+               
+        $usuario = new Usuario;
         $usuario->fill($values);
         $usuario->login = $request->input('cpf', "");
-       
+        
         $endereco = new Endereco($values);
-        $endereco->fill($values);
-        $endereco->logradouro = $request->input('endereco' , "");
-     
-       try {
+        $endereco->logradouro = $request->input('endereco' , ""); 
+       // dd($endereco);
           
+       try {
+       
          $usuario->save();
+         
          $endereco->usuario_id = $usuario->id; // relacionamento das tabelas
-         dd('salvo usuario') ;
+        
          $endereco->save(); 
 
        } catch (\Exception $e) {
