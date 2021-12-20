@@ -1,4 +1,16 @@
-@extends("layout")   
+@extends("layout") 
+@section("scriptjs")  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+$(function(){
+  $("#cpf").mask("000.000.000.00")
+  $("#cep").mask("00000-000")
+})
+
+</script>
+
+@endsection
 @section("conteudo")
   <div class="col-12">
       <h2 class="mb-3">Cadastar Clientes</h2>
@@ -18,7 +30,7 @@
         </div>   
         <div class="col-6">
             <div class="form-group">
-              Cpf:<input type="text" name="cpf" class="form-control" />
+              Cpf:<input type="text" name="cpf" id="cpf" class="form-control" />
             </div>
         </div> 
           <div class="col-6">  
@@ -51,7 +63,7 @@
           </div>
           <div class="col-4"> 
             <div class="form-group">
-              Cep:<input type="text" name="cep" class="form-control" />
+              Cep:<input type="text" name="cep" id="cep" class="form-control" />
             </div>
           </div>  
           <div class="col-4"> 
