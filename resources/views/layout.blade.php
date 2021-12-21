@@ -18,13 +18,22 @@
             <div class="navbar-nav">
                 <a class="nav-link" href="{{ route('home')}}">Home</a>
                 <a class="nav-link" href="{{ route('categoria')}}">Categoria</a>
-                <a class="nav-link" href="{{ route('cadastrar')}}">Cadastrar</a>     
+                <a class="nav-link" href="{{ route('cadastrar')}}">Cadastrar</a>   
+                <a class="nav-link" href="{{ route('logar')}}">Logar</a>   
             </div>
         </div>
         <a href="{{ route('ver_carrinho')}}" class="btn btn-sm"><i class="fa fa-shopping-cart"></i></a>
       </nav> 
       <div class="container">
           <div class="row">
+            
+            @if(\Auth::user())
+               <div class="col-12">
+                   <p class="text-right">Seja bem vindo, {{ \Auth::user()->nome}} </p>
+               </div>
+            @endif
+            
+
              @if($message = Session::get("err"))
                 <div class="col-12">
                    <div class="alert alert-danger">{{ $message}}</div>

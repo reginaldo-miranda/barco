@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 Route::get('/', function () {
@@ -27,8 +28,14 @@ Route::match(['get','post'], '/carrinho',[ProdutoController::class,'verCarrinho'
 Route::match(['get','post'], '/{indice}/excluircarrinho',[ProdutoController::class,'excluirCarrinho'])->name('carrinho_excluir');
 
 
+Route::post('/logar',[UsuarioController::class,'logar'])->name('logar');
+
+
+
 // fiz ate a aula 3 completa 
 
 // aula 14 
+
+// https://www.youtube.com/watch?v=mxQECfywOFA&t=39s&ab_channel=TheCoderBr // link da theCoder videos do curso
 
 
