@@ -15,7 +15,7 @@ $(function(){
   <div class="col-12">
       <h2 class="mb-3">Cadastar Clientes</h2>
   </div>
-  <form action=" {{route('cadastrar_cliente')}}" method="post">
+  <form action="{{route("cadastrar_cliente")}}" method="post">
       @csrf
       <div class="row">
         <div class="col-6">
