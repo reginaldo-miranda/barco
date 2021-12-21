@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\models\Usuario;
 use App\models\Endereco;
+use App\services\ClienteService;
 use Illuminate\Support\Facades\DB;
 
 
@@ -32,20 +33,13 @@ class ClienteController extends Controller
         
         $endereco->logradouro = $request->input('endereco' , ""); 
         //dd($endereco);
+        $ClienteService = new ClienteService();
+        $result = $ClienteService->salvarUsuario($usuario, $endereco);
       
-       try {
-        DB::beginTransaction();
-         
-          $usuario->save();
-          // throw new \Exception("ERRO DEPOIS DE SALVAR O USUARIO");
-          $endereco->usuario_id = $usuario->id; // relacionamento das tabelas
-          $endereco->save(); 
-         DB::commit();
-         
+        $message = $result["message"];
+        $status = $result["status"];
 
-       } catch (\Exception $e) {
-        DB::rollback();
-       }
+        $request->session()->flash($status, $message);
 
        return redirect()->route("cadastrar"); 
      }

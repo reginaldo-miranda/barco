@@ -25,7 +25,17 @@
       </nav> 
       <div class="container">
           <div class="row">
-            {{-- nesta div teremos uma area que os arquivos irão adicionar conteudos --}}
+             @if($message = Session::get("err"))
+                <div class="col-12">
+                   <div class="alert alert-danger">{{ $message}}</div>
+               </div>
+             @endif 
+
+             @if($message = Session::get("ok"))
+                <div class="col-12">
+                   <div class="alert alert-success">{{ $message}}</div>
+                </div>   
+             @endif 
 
             @yield("conteudo")
           </div>         
