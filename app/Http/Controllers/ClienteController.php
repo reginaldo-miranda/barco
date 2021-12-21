@@ -8,6 +8,7 @@ use App\models\Usuario;
 use App\models\Endereco;
 use Illuminate\Support\Facades\DB;
 
+
 class ClienteController extends Controller
 {
     public function cadastrar(){
@@ -31,20 +32,20 @@ class ClienteController extends Controller
         
         $endereco->logradouro = $request->input('endereco' , ""); 
     
-          
+      
        try {
-        // DB::beginTransaction();
+        DB::beginTransaction();
          $usuario->save();
         // throw new \Exception("ERRO DEPOIS DE SALVAR O USUARIO");
-         
+        
          $endereco->usuario_id = $usuario->id; // relacionamento das tabelas
-    
+      
          $endereco->save(); 
-        // DB::commit();
+        DB::commit();
          
 
        } catch (\Exception $e) {
-        //DB::rollback();
+        DB::rollback();
        }
 
        return redirect()->route("cadastrar"); 
