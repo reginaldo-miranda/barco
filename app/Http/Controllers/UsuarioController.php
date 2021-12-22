@@ -16,6 +16,8 @@ class UsuarioController extends Controller
           $login = $request->input("login");
           $senha = $request->input("senha");
 
+          $login = preg_replace("/[^0-9]/", "", $login);
+
           $credential = ['login' => $login , 'password' => $senha];
          
           if(Auth::attempt($credential)){

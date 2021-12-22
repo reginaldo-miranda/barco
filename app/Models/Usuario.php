@@ -31,4 +31,13 @@ class Usuario extends RModel implements Authenticatable
       return 'token';
     }
 
+    public function setLoginAttribute($login){
+
+      $value = preg_replace("/[^0-9]/","", $login);
+      $this->attributes["login"] = $value;
+    }
+
+
+    
+
 }
