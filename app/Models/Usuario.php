@@ -22,13 +22,13 @@ class Usuario extends RModel implements Authenticatable
         return $this->password;
     }
     public function getRememberToken(){
-
+      return $this->token;
     }
     public function setRememberToken($value){
-
+      $this->token = $value;
     }
     public function getRememberTokenName(){
-
+      return 'token';
     }
 
 }
