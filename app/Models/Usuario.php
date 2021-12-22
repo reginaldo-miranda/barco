@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 
-
 class Usuario extends RModel implements Authenticatable
 {
    // protected $primaryKey = "id";

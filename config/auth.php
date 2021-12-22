@@ -68,7 +68,8 @@ return [
 //---------------------- mexi aqui
          'users' => [
             'driver' => 'database',
-            'table' => 'users',
+           // 'table' => 'users',
+            'table' => 'usuarios',
         ],
     ],
 //----------------------------
