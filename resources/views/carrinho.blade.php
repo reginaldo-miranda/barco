@@ -43,6 +43,7 @@
     
     </table>
     <form meta="post" action="{{route('carrinho_finalizar')}}">
+       @csrf
        <input type="submit" value="Finalizar Compra" class="btn btn-lg btn-success">
     </form>
 

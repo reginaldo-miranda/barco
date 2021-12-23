@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class Usuario extends RModel implements Authenticatable
 {
    // protected $primaryKey = "id";
   //  protected $keyType = 'int';
+
     protected $table = "usuarios";
 
     protected $fillable = ['login', 'email', 'password', 'nome'];

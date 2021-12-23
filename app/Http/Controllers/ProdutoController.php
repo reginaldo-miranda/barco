@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\models\Categoria;
-use App\models\Produto;
-
 
 use Illuminate\Http\Request;
+use App\models\Categoria;
+use App\models\Produto;
+use App\models\Usuario;
+use App\services\VendaService;
+use Illuminate\Support\Facades\Auth;
 
 class ProdutoController extends Controller
 {
@@ -71,5 +73,35 @@ class ProdutoController extends Controller
        session(['cart' => $carrinho]);
        return redirect()->route("ver_carrinho");
 
+     }
+
+     public function finalizar(Request $request){
+
+         $prods = session('cart', []);
+         
+       
+         $usuario = new Usuario();
+
+         if (Auth::check()) {
+           
+             $user = Auth::user()->id;
+            // dd($usuario);
+            $vendaService = new VendaService();
+         $result =   $vendaService->finalizarVenda($prods, $user) ;
+            //dd('autenticado');// The user is logged in...
+        }else{
+            dd('nao autenticado');
+        }
+       
+         
+
+         if($result["status"]== "ok"){
+            $request()->session()->forget("cart");
+         }
+
+         $request->session()->flash($result["status"], $result['message']);
+
+
+      return redirect()->route("ver_carrinho");
      }
 }

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 //use App\Http\Controllers\Auth;
 
+
+
 class UsuarioController extends Controller
 {
     public function logar(Request $request){
