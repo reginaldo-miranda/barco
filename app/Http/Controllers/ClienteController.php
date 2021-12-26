@@ -28,7 +28,7 @@ class ClienteController extends Controller
    
         $senha = $request->input("password", "");
         $usuario->password = Hash::make($senha);
-      //  dd($usuario);
+       // dd($usuario);
         $endereco = new Endereco($values);
         
         $endereco->logradouro = $request->input('endereco' , ""); 

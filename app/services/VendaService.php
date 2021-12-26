@@ -24,10 +24,10 @@ class VendaService {
             $pedido->datapedido = $dthoje->format("y-m-d H:i:s");
             $pedido->status = "PEN";
             
-            $pedido->usuario_id = 9; //$user;
-            dd($pedido);
+            $pedido->usuario_id = $user;
+          // dd($pedido);
             $pedido->save();
-        /*
+            
             foreach($prods as $p){
                 
                 $itens = new ItensPedido();
@@ -38,7 +38,8 @@ class VendaService {
                 $itens->produto_id = $p->id;
                 $itens->pedido_id  = $pedido->id;
                 $itens->save();
-            } */
+                
+            } 
 
      //  DB::commit();
        return ['status' => 'ok', 'message' => 'venda finalizada com sucesso'];

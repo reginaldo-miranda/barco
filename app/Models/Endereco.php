@@ -9,7 +9,7 @@ class Endereco extends RModel
     protected $table = "enderecos";
   //  protected $keyType = 'int';
 
-    protected $fillable = ['logradouro' , 'numero' , 'cidade',  'estado' , 'cep' , 'complemento'];
+    protected $fillable = ['numero' , 'complemento' , 'cidade',  'cep' , 'estado' , 'logradouro', 'usuario_id'];
 
     public function usuario(){
 

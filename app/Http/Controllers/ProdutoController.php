@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\models\Categoria;
 use App\models\Produto;
 use App\models\Usuario;
+use App\models\Pedido;
 use App\services\VendaService;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,29 +80,43 @@ class ProdutoController extends Controller
 
          $prods = session('cart', []);
          
-       
+         
          $usuario = new Usuario();
 
          if (Auth::check()) {
-           
+             
              $user = Auth::user()->id;
-            // dd($usuario);
+         
             $vendaService = new VendaService();
          $result =   $vendaService->finalizarVenda($prods, $user) ;
-            //dd('autenticado');// The user is logged in...
+         
         }else{
-            dd('nao autenticado');
+            return redirect()->route('ver_carrinho');
         }
        
          
 
          if($result["status"]== "ok"){
-            $request()->session()->forget("cart");
+            session()->forget('cart');
          }
 
          $request->session()->flash($result["status"], $result['message']);
 
 
       return redirect()->route("ver_carrinho");
+     }
+
+     public function historico(){
+
+         $data=[];
+
+         
+         $usuario = Auth::user()->id;
+         
+         $listaPedido = pedido::where("usuario_id" , $usuario)->orderBy("datapedido", "desc")->get();
+
+         $data["lista"] = $listaPedido;
+
+      return view('compra/historico' , $data);
      }
 }
