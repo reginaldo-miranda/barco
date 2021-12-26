@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+
 use App\models\Categoria;
+use App\Models\ItensPedido;
 use App\models\Produto;
 use App\models\Usuario;
 use App\models\Pedido;
@@ -118,5 +119,18 @@ class ProdutoController extends Controller
          $data["lista"] = $listaPedido;
 
       return view('compra/historico' , $data);
+     }
+
+     public function detalhes(Request $request){
+         $idpedido = $request->input("idpedido");
+         
+         $listaItens = itensPedido::join("produtos" , "produtos.id", "=", "itens_pedidos.produto_id")
+                                    ->where("pedido_id" , $idpedido)
+                                    ->get(['itens_pedidos.*' , 'itens_pedidos.valor as valoritens' , 'produtos.*'] );
+         $data = [];
+
+         $data["listaItens"] = $listaItens;
+         return view("compra/detalhes" , $data);
+
      }
 }
