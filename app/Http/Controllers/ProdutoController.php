@@ -1,18 +1,50 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\models\Categoria;
-use App\Models\ItensPedido;
 use App\models\Produto;
-use App\models\Usuario;
-use App\models\Pedido;
 use App\services\VendaService;
+use App\models\Pedido;
+use App\Models\ItensPedido;
+use App\models\Usuario;
+
 use Illuminate\Support\Facades\Auth;
+use PagSeguro\Configuration\Configure;
+/*
+use PagSeguro\Domains\AccountCredentials;
+use PagSeguro\Domains\ApplicationCredentials;
+use PagSeguro\Domains\Charset;
+use PagSeguro\Domains\Environment;
+use PagSeguro\Domains\Log;
+use PagSeguro\Resources\Responsibility;
+*/
+
+
+
 
 class ProdutoController extends Controller
 {
+
+    private $_configs;
+
+    public function __construct()
+    {
+       $this->_configs = new Configure();
+       $this->_configs->setCharset("UTF-8");
+       $this->_configs->setAccountCredentials(env('PAGSEGURO_EMAIL'), env('PAGSEGURO_TOKEN'));
+       $this->_configs->setEnvironment(env("PAGSEGURO_AMBIENTE"));
+       $this->_configs->setLog(true, storage_path('logs/pagueseguro_' . date('Ymd'). '.log '));
+    }
+
+    
+
+    public function getCredential(){
+
+       return $this->_configs->getAccountCredentials(); // espeara dois argumentos
+    }
+
     public function index(Request $request){
        $data = [];
        $listaprodutos = produto::all();
@@ -135,10 +167,19 @@ class ProdutoController extends Controller
      }
 
      public function pagar(Request $request){
-           $data = []  ;
+         //  dd($request);
+           $data = [];
+           $carrinho = session('cart', []);
+           $data['cart'] = $carrinho;
 
-
-           return view("compra/pagar" , $data) ;
+           $sessionCode = \PagSeguro\Services\Session::create(
+              $this->getCredential()
+            );
+                  
+           $IDSession = $sessionCode->getRsult();
+           $data['sessionID'] = $IDSession;
        
+           return view("compra/pagar" , $data) ;
+        }
      }
-}
+   
