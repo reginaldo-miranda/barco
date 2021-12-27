@@ -42,7 +42,7 @@
         </tfooter>
     
     </table>
-    <form meta="post" action="{{route('carrinho_finalizar')}}">
+    <form meta="post" action="{{route('pagar')}}">
        @csrf
        <input type="submit" value="Finalizar Compra" class="btn btn-lg btn-success">
     </form>

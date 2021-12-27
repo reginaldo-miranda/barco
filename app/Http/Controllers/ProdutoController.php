@@ -133,4 +133,12 @@ class ProdutoController extends Controller
          return view("compra/detalhes" , $data);
 
      }
+
+     public function pagar(Request $request){
+           $data = []  ;
+
+
+           return view("compra/pagar" , $data) ;
+       
+     }
 }
