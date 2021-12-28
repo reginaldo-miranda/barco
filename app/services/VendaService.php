@@ -42,7 +42,7 @@ class VendaService {
             } 
 
      //  DB::commit();
-       return ['status' => 'ok', 'message' => 'venda finalizada com sucesso'];
+       return ['status' => 'ok', 'message' => 'venda finalizada com sucesso', 'idpedido'=>$pedido->id ]; 
 
 
       }catch(\Exception $e){

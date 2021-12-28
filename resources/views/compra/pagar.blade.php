@@ -21,9 +21,31 @@
                 $(".hashseller").val(hash)
               
         })
+
+        let ncartao = $(this).val();
+         $(".bandeira").val("") 
+        if(ncartao.length -> 6){
+            let prefixcartao = ncartao.substr(0,6)
+            PagSeguroDirectPayment.getBrand({
+                cardBin : prefixcartao,
+                success : function(response){
+                       $(".bandeira").val(response.brand.name) 
+                },
+                error : function(response){
+                    alert("Numero do cartao invalido")
+                     $(".bandeira").val("") 
+                }
+            })
+        }
+
+    })
+
         $(".nparcela").on('blur' , function(){
-            var bandeira = 'visa';
+            var bandeira = $(".bandeira").val(),
             var totalParcela = $(this).val();
+            if(bandeira == ""){
+                alert("Preencha o numero cartao valido")
+            }
 
             PagSeguroDirectPayment.getInstallments({
                amount : $(".totalfinal").val() ,
@@ -42,6 +64,40 @@
                    $(".totalparcela").val(valorTotalParcela)
                    $(".totalapagar").val(totalapagar)
                }
+            })
+        })
+        $(".pagar").on("click" , function(){
+            var numerocartao = $(".ncredito").val()
+            var iniciocartao = numerocartao.substr(0,6)
+            var ncvv       = $(".ncvv").val()
+            var anoexp     = $(".anoexp").val()
+            var mesexp     = $(".mesexp").val()
+            var hashseller = $(".hashseller").val()
+            var bandeira   = $(".bandeira").val()
+
+            PagSeguroDirectPayment.createCardToken({
+                cardNumber : numerocartao,
+                brand : bandeira,
+                cvv : ncvv,
+                expirationMonth : mesexp,
+                expirationYear : anoexp,
+                success : function(response){
+                  $.post(' {{route("carrinho_finalizar")}}' ,{
+                        hashseller : hashseller,
+                        cardtoken  : response.card.token,
+                        nparcela : $(".nparcela").val(),
+                        totalapagar : $(".totalapagar").val()
+                        totalParcela : $(".totalParcela").val()
+                  }, function(){
+                      alert(result)
+                  
+                  }); 
+                },
+                error : function(err){
+                   alert("Nao pode buscar o token do cartao verifique todos os campos") 
+                   console.log(err)
+                }
+
             })
         })
     })
@@ -79,6 +135,7 @@
 
 
         <input type="text" name="hashseller" class="hashseller">
+        <input type="text" name="bandeira" class="bandeira">
         <div class ="row">
 
             <div class="col-4">
