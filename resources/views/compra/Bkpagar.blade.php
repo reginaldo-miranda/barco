@@ -13,22 +13,17 @@
     }
     $(function(){
         carregar();
-        $( "#cartao" ).blur(function() {
-  alert( "Handler for .blur() called." );
-});
-
-        $( ".ncredito" ).blur(function() {
-             alert( "Handler for .blur() called." );
-
-               PagSeguroDirectPayment.onSenderHashReady(function(response){
+       
+        $(".ncredito").on('blur', function(){
+            PagSeguroDirectPayment.onSenderHashReady(function(response){
                 if(response.status == 'error'){
                     console.log(response.message);
                     return false
                 }
                 var hash = response.SenderHash
                 $(".hashseller").val(hash)
-         });
-       
+              
+        })
 
         let ncartao = $(this).val()
          $(".bandeira").val("") 
@@ -48,7 +43,7 @@
 
     })
 
-        $(".nparcela").blur , function(){
+        $(".nparcela").on('blur' , function(){
             var bandeira = $(".bandeira").val(),
             var totalParcela = $(this).val();
             if(bandeira == ""){
@@ -149,7 +144,7 @@
 
             <div class="col-4">
                 Cartão de Credito:
-                <input type="text" name="ncredito" id="cartao" class="ncredito form-control" />
+                <input type="text" name="ncredito" class="ncredito form-control" />
             </div>
 
             <div class="col-4">
@@ -209,4 +204,9 @@ env
 PAGSEGURO_EMAIL=reginaldobrain@gmail.com
 PAGSEGURO_TOKEN=2F0BA225966C4101A223300BC255516C
 PAGSEGURO_AMBIENTE=sandbox
+
+
+$( "#target" ).blur(function() {
+  alert( "Handler for .blur() called." );
+});
  */ --}}

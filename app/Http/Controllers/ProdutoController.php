@@ -225,7 +225,7 @@ class ProdutoController extends Controller
                 
            $IDSession = $sessionCode->getResult();
            $data['sessionID'] = $IDSession;
-     
+           //dd($data);
        
            return view("compra/pagar" , $data) ;
         }
