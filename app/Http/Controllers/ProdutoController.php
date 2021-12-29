@@ -13,25 +13,34 @@ use App\models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use PagSeguro\Configuration\Configure;
 
+
 class ProdutoController extends Controller
 {
 
-    private $_configs;
+    public $_configs;
 
     public function __construct()
     {
-       $this->_configs = new Configure();
-       $this->_configs->setCharset("UTF-8");
-       $this->_configs->setAccountCredentials(env('PAGSEGURO_EMAIL'), env('PAGSEGURO_TOKEN'));
-       $this->_configs->setEnvironment(env("PAGSEGURO_AMBIENTE"));
-       $this->_configs->setLog(true, storage_path('logs/pagueseguro_' . date('Ymd'). '.log '));
+           
+      $this->_configs = new Configure();
+      $this->_configs->setCharset("UTF-8");
+
+      $this->_configs->setAccountCredentials(env('PAGSEGURO_EMAIL'), env('PAGSEGURO_TOKEN'));
+ 
+      $this->_configs->setEnvironment(env("PAGSEGURO_AMBIENTE"));
+      // $this->_configs->setLog(true, storage_path('logs/pagueseguro_' . date('Ymd'). '.log '));
+      $this->_configs->setLog(true, storage_path('logs/laravel'.'.log '));
+     
+        
     }
 
     
 
     public function getCredential(){
-
-       return $this->_configs->getAccountCredentials(); // espeara dois argumentos
+    
+      return $this->_configs->getAccountCredentials(); 
+   
+     
     }
 
     public function index(Request $request){
@@ -99,7 +108,7 @@ class ProdutoController extends Controller
      }
 
      public function finalizar(Request $request){
-
+         dd('finalizar');
          $prods = session('cart', []);
          
          
@@ -110,7 +119,7 @@ class ProdutoController extends Controller
              $user = Auth::user()->id;
          
             $vendaService = new VendaService();
-         $result =   $vendaService->finalizarVenda($prods, $user) ;
+         $result = $vendaService->finalizarVenda($prods, $user) ;
          
         }else{
             return redirect()->route('ver_carrinho');
@@ -120,6 +129,8 @@ class ProdutoController extends Controller
 
          if($result["status"]== "ok"){
            // session()->forget('cart');
+
+          
              $credCard = new \PagSeguro\Domains\Requests\DirectPayment\CreditCard();
              $credCard->setReference("PED_" . $result["idpedido"]);
              $credCard->setCurrency("BRL");
@@ -200,19 +211,24 @@ class ProdutoController extends Controller
      }
 
      public function pagar(Request $request){
-         //  dd($request);
+          //dd($request);
            $data = [];
+
            $carrinho = session('cart', []);
            $data['cart'] = $carrinho;
-
+       
            $sessionCode = \PagSeguro\Services\Session::create(
-              $this->getCredential()
+            
+            $this->getCredential()
             );
-                  
-           $IDSession = $sessionCode->getRsult();
+         
+                
+           $IDSession = $sessionCode->getResult();
            $data['sessionID'] = $IDSession;
+     
        
            return view("compra/pagar" , $data) ;
         }
      }
    
+  

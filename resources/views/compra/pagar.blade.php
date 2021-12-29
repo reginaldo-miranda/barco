@@ -107,7 +107,7 @@
 
 @section("conteudo")
   <form>
-    @php $total += $p->valor; @endphp  
+  
         @if(isset($cart) && count($cart) > 0)
 
         <table class="table">
@@ -127,7 +127,7 @@
                     </tr>
               
                 @endforeach 
-
+                  @php $total += $p->valor; @endphp      
             </tbody>
                 
         </table>
