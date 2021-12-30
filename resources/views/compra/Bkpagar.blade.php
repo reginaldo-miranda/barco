@@ -9,6 +9,7 @@
     function carregar(){
         
         PagSeguroDirectPayment.setSessionId('{{ $sessionID }} ')
+     
 
     }
     $(function(){
