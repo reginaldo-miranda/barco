@@ -146,7 +146,7 @@ class ProdutoController extends Controller
              $credCard->setSender()->setName($user->nome . "" . $user->nome);
             // $credCard->setSender()->setEmail($user->email);
              $credCard->setSender()->setEmail($user->login . "@sandbox.pagseguro.com.br ");
-             $credCard->setSender()->setHash($request->input("hashseller"));
+             $credCard->setSender()->setHash('t$req->input("hashseller")');
              $credCard->setSender()->setPhone()->withParameters(21, 45455555);
              $credCard->setSender()->setDocument()->withParameters("CPF", $user->login);
 
@@ -158,11 +158,11 @@ class ProdutoController extends Controller
                'Av A', '1234', 'jd botanico', '222222222', 'Rio de Janeiro' , 'RJ', 'BRA', 'Ap .100'
 
              );
-             $credCard->setToken($request->input("cardtoken"));
+             $credCard->setToken('$req->input("cardtoken")');
 
-             $parcela = $request->input("nparcela");
-             $totalapagar = $request->input("totalpagar");
-             $totalParcela = $request->input("totalParcela");
+             $parcela = '$req->input("nparcela")';
+             $totalapagar = '$req->input("totalpagar")';
+             $totalParcela = '$req->input("totalParcela")';
 
              $credCard->setInstallment()->withParameters($parcela, number_format($totalParcela, 2, ".", ""));
 

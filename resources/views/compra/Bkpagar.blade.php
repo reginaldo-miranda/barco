@@ -16,17 +16,22 @@
         carregar();
        
         $(".ncredito").on('blur', function(){
-            PagSeguroDirectPayment.onSenderHashReady(function(response){
-                if(response.status == 'error'){
-                    console.log(response.message);
-                    return false
-                }
-                var hash = response.SenderHash
-                $(".hashseller").val(hash)
-              
-        })
+
+                     PagSeguroDirectPayment.onSenderHashReady(function(response){
+                      if(response.status == 'error'){
+                        console.log(response.message);
+                        return false
+                       }
+                     var hash = response.senderHash;
+                     $(".hashseller").val(hash)
+          
+               });
+
+              })
+    
 
         let ncartao = $(this).val()
+
          $(".bandeira").val("") 
         if(ncartao.length -> 6){
             let prefixcartao = ncartao.substr(0,6)
@@ -42,8 +47,8 @@
             })
         }
 
-    })
-
+    
+/*
         $(".nparcela").on('blur' , function(){
             var bandeira = $(".bandeira").val(),
             var totalParcela = $(this).val();
@@ -103,7 +108,7 @@
                 }
 
             })
-        })
+        })*/
     })
   
   </script>
@@ -144,8 +149,12 @@
         <div class ="row">
 
             <div class="col-4">
-                Cartão de Credito:
+                Cartao de Credito:
                 <input type="text" name="ncredito" class="ncredito form-control" />
+            </div>
+             <div class="col-4">
+                Bandeira:
+                <input type="text" name="bandeira" class="bandeira form-control" />
             </div>
 
             <div class="col-4">
@@ -154,12 +163,12 @@
             </div>
 
             <div class="col-4">
-                Mes de expiração: 
+                Mes de expiracao: 
                <input type="text"  namee="mesexp" class="mesexp form-control"/>
             </div>
 
             <div class="col-4">
-                Ano de expiração: 
+                Ano de expiracao: 
                <input type="text"  namee="anoexp" class="anoexp form-control"/>
             </div>
 
@@ -210,4 +219,7 @@ PAGSEGURO_AMBIENTE=sandbox
 $( "#target" ).blur(function() {
   alert( "Handler for .blur() called." );
 });
+
+
+https://labs.bawi.io/checkout-transparente-com-pagseguro-7dfb0a164492 link de codigo
  */ --}}
