@@ -160,9 +160,9 @@ class ProdutoController extends Controller
              );
              $credCard->setToken('$req->input("cardtoken")');
 
-             $parcela = '$req->input("nparcela")';
-             $totalapagar = '$req->input("totalpagar")';
-             $totalParcela = '$req->input("totalParcela")';
+             $parcela = $req->input("nparcela");
+             $totalapagar = $req->input("totalpagar");
+             $totalParcela = $req->input("totalParcela");
 
              $credCard->setInstallment()->withParameters($parcela, number_format($totalParcela, 2, ".", ""));
 
@@ -224,7 +224,7 @@ class ProdutoController extends Controller
          
                 
            $IDSession = $sessionCode->getResult();
-           $data['sessionID'] = $IDSession;
+           $data["sessionID"] = $IDSession;
            //dd($data);
        
            return view("compra/pagar" , $data) ;

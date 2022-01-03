@@ -2,7 +2,7 @@
 
 @section("scriptjs")
   <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-  <script src ="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ {{--  <script src ="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
   
 
   <script>
@@ -10,7 +10,6 @@
         
         PagSeguroDirectPayment.setSessionId('{{ $sessionID }} ')
      
-
     }
     $(function(){
         carregar();
@@ -21,36 +20,21 @@
                       if(response.status == 'error'){
                         console.log(response.message);
                         return false
+                       
                        }
                      var hash = response.senderHash;
                      $(".hashseller").val(hash)
-          
-
               })
-        let ncartao = $(this).val()
-         $(".bandeira").val("") 
 
-        if(ncartao.length > 6){
-            let prefixcartao = ncartao.substr(0, 6)
-             PagSeguroDirectPayment.getBrand({
-                cardBin : prefixcartao,
-                success : function(response){
-                       $(".bandeira").val(response.brand.name) 
-                },
-                error : function(response){
-                    alert("Numero do cartao invalido")
-                }
-            })
-       }
-
+         })
     })
+      
 
         $(".nparcela").on('blur' , function(){
-            var bandeira = $(".bandeira").val();
+            var bandeira = 'visa';
+           $(".bandeira").val();
+
             var totalParcela = $(this).val();
-            if(bandeira == ""){
-                alert("Preencha o numero cartao valido")
-            }
 
             PagSeguroDirectPayment.getInstallments({
                amount : $(".totalfinal").val() ,
@@ -58,6 +42,28 @@
                brand : bandeira,
                success : function(response){
                    console.log(response);
+               }
+            })
+        });
+
+/*})   
+
+   /*
+PagSeguroDirectPayment.getBrand({
+    cardBin: 411111,
+    success: function(response) {
+      dd('bandeira') //bandeira encontrada
+    },
+    error: function(response) {
+      //tratamento do erro
+    },
+    complete: function(response) {
+      //tratamento comum para todas chamadas
+    }
+});
+
+
+                
                    let status = response.error
                    if(status){
                        alert('Nao foi encontrado opcoes de parcelamento')
@@ -71,6 +77,7 @@
                }
             })
         })
+        
         $(".pagar").on("click" , function(){
             var numerocartao = $(".ncredito").val()
             var iniciocartao = numerocartao.substr(0,6)
@@ -106,13 +113,14 @@
             })
         })
     })
+    })*/
   
   </script>
 @endsection
 
 @section("conteudo")
   <form>
-  
+       @php $total = 0 ; @endphp 
         @if(isset($cart) && count($cart) > 0)
 
         <table class="table">
@@ -123,16 +131,13 @@
                 </tr>
             </thead>
             <tbody>
-                @php $total = 0 ; @endphp       
-                @foreach ($cart as $indice => $p )
+               @foreach ($cart as $indice => $p )
                     <tr>
                         <td>{{$p->nome}}</td>  
                         <td>{{$p->valor}}</td>  
-                    
                     </tr>
-              
-                @endforeach 
-                  @php $total += $p->valor; @endphp      
+                   @php $total += $p->valor; @endphp      
+               @endforeach 
             </tbody>
                 
         </table>
