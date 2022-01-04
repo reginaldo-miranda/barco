@@ -2,9 +2,6 @@
 
 @section("scriptjs")
   <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-  {{-- <script src ="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-  
-
   <script>
     function carregar(){
         
@@ -29,76 +26,7 @@
          })
     });
       
-   /*   
-
-        $(".nparcela").on('blur' , function(){
-            var bandeira = 'visa';
-           $(".bandeira").val();
-
-            var totalParcela = $(this).val();
-
-            PagSeguroDirectPayment.getInstallments({
-               amount : $(".totalfinal").val() ,
-               maxIntallmentNointerest : 2,
-               brand : bandeira,
-               success : function(response){
-                   console.log(response);
-               }
-            })
-       })
-*/
-   /*             
-                   let status = response.error
-                   if(status){
-                       alert('Nao foi encontrado opcoes de parcelamento')
-                       return;
-                   }
-                   let indice = totalParcela - 1;
-                   let totalapagar = response.installments(bandeira)[indice].totalAmount
-                   let valorTotalParcela = response.installments(bandeira)[indice].installmentAmount
-                   $('.totalparcela').val(valorTotalParcela);
-                   $('.totalapagar').val(totalapagar);
-               } 
-            })
-       })
-       
-        $(".pagar").on("click" , function(){
-            var numerocartao = $(".ncredito").val()
-            var iniciocartao = numerocartao.substr(0,6)
-            var ncvv       = $(".ncvv").val()
-            var anoexp     = $(".anoexp").val()
-            var mesexp     = $(".mesexp").val()
-            var hashseller = $(".hashseller").val()
-            var bandeira   = $(".bandeira").val()
-
-            PagSeguroDirectPayment.createCardToken({
-                cardNumber : numerocartao,
-                brand : bandeira,
-                cvv : ncvv,
-                expirationMonth : mesexp,
-                expirationYear : anoexp,
-                success : function(response){
-                  $.post(' {{route("carrinho_finalizar")}}' ,{
-                        hashseller : hashseller,
-                        cardtoken  : response.card.token,
-                        nparcela : $(".nparcela").val(),
-                        totalapagar : $(".totalapagar").val(),
-                        totalParcela : $(".totalParcela").val()
-                  }, function(){
-                      alert(result)
-                  
-                  }); 
-                };
-                error : function(err){
-                   alert("Nao pode buscar o token do cartao verifique todos os campos") 
-                   console.log(err)
-                }
-
-            })
-        })
-    })*/
-  });
-  
+ 
   </script>
 @endsection
 

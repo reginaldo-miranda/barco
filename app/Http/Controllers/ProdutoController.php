@@ -34,12 +34,9 @@ class ProdutoController extends Controller
         
     }
 
-    
-
     public function getCredential(){
     
       return $this->_configs->getAccountCredentials(); 
-   
      
     }
 
@@ -95,7 +92,7 @@ class ProdutoController extends Controller
 
      }
 
-     public function excluirCarrinho( $indice, Request $request){
+     public function excluirCarrinho($indice, Request $request){
 
        $carrinho = session('cart', []);
        if(isset($carrinho[$indice])){
@@ -119,7 +116,7 @@ class ProdutoController extends Controller
              $user = Auth::user()->id;
          
             $vendaService = new VendaService();
-         $result = $vendaService->finalizarVenda($prods, $user) ;
+            $result = $vendaService->finalizarVenda($prods, $user) ;
          
         }else{
             return redirect()->route('ver_carrinho');
@@ -151,19 +148,35 @@ class ProdutoController extends Controller
              $credCard->setSender()->setDocument()->withParameters("CPF", $user->login);
 
              $credCard->setShipping()->setAddress()->withParameters(
-               'Av A', '1234', 'jd botanico', '222222222', 'Rio de Janeiro' , 'RJ', 'BRA', 'Ap .100'
+               'Av A',
+               '1234',
+               'jd botanico',
+               '222222222',
+               'Rio de Janeiro' , 
+               'RJ', 'BRA', 
+               'Ap .100'
 
              );
+
              $credCard->setBilling()->setAddress()->withParameters(
-               'Av A', '1234', 'jd botanico', '222222222', 'Rio de Janeiro' , 'RJ', 'BRA', 'Ap .100'
+               'Av A', 
+               '1234',
+               'jd botanico', 
+               '222222222', 
+               'Rio de Janeiro' , 
+               'RJ',
+               'BRA',
+               'Ap .100'
 
              );
-             $credCard->setToken('$req->input("cardtoken")');
 
-             $parcela = $req->input("nparcela");
-             $totalapagar = $req->input("totalpagar");
+             $credCard->setToken($req->input("cardtoken"));
+
+             $parcela      = $req->input("nparcela");
+             $totalapagar  = $req->input("totalpagar");
              $totalParcela = $req->input("totalParcela");
-
+             
+          
              $credCard->setInstallment()->withParameters($parcela, number_format($totalParcela, 2, ".", ""));
 
                // dados titular do cartao
@@ -227,7 +240,7 @@ class ProdutoController extends Controller
            $data["sessionID"] = $IDSession;
            //dd($data);
        
-           return view("compra/pagar" , $data) ;
+           return view("compra/pagar3" , $data) ;
         }
      }
    
