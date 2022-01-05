@@ -8,6 +8,7 @@
         PagSeguroDirectPayment.setSessionId('{{ $sessionID }} ')
      
     }
+    // inicio da funcao carregar
     $(function(){
         carregar();
        
@@ -24,7 +25,32 @@
               })
 
          })
-    });
+         $(".nparcela").on('blur' , function(){
+             var bandeira = 'visa';
+             var totalParcela = $(this).val();
+
+            PagSeguroDirectPayment.getInstallments({
+                 amount : $(".totalfinal").val(),
+                 maxIntallmentNointerest : 2,
+                 brand : bandeira,
+                 success : function(response){
+                     console.log(response);
+                     let status = response.error
+                     if(status){
+                         alert("Nao foi encontrado a opcao de parcelamento")
+                         return;
+                     }
+                     let indice = totalParcela -1;
+                     let totalapagar = response.installments[bandeira][indice].totalAmount
+                     let valorTotalParcela = response.installments[bandeira][indice].installmentAmount
+                     $(".totalParcela").val(valorTotalParcela)
+                     $(".totalapagar").val(totalapagar)
+
+                 }
+             })
+             
+         })
+    }) // fim da funcao carregar
       
  
   </script>
@@ -77,37 +103,37 @@
 
             <div class="col-4">
                 Mes de expiracao: 
-               <input type="text"  namee="mesexp" class="mesexp form-control"/>
+               <input type="text"  name="mesexp" class="mesexp form-control"/>
             </div>
 
             <div class="col-4">
                 Ano de expiracao: 
-               <input type="text"  namee="anoexp" class="anoexp form-control"/>
+               <input type="text"  name="anoexp" class="anoexp form-control"/>
             </div>
 
             <div class="col-4">
                 Nome no cartao: 
-               <input type="text"  namee="nomecartao" class="nomecartao form-control"/>
+               <input type="text"  name="nomecartao" class="nomecartao form-control"/>
             </div>
 
             <div class="col-4">
                 Parcelas: 
-               <input type="text"  namee="nparcela" class="nparcela form-control"/>
+               <input type="text"  name="nparcela" class="nparcela form-control"/>
             </div>
 
             <div class="col-4">
                 Valor Total: 
-               <input type="text"  namee="totalfinal" value="{{$total}} "class="totalfinal form-control" readonly />
+               <input type="text"  name="totalfinal" value="{{$total}}" class="totalfinal form-control" readonly />
             </div>
 
             <div class="col-4">
                 Valor da parcela: 
-               <input type="text"  namee="totalparcela" class="totalParcela form-control"/>
+               <input type="text"  name="totalparcela" class="totalParcela form-control"/>
             </div>
 
             <div class="col-4">
                 Total a Pagar: 
-               <input type="text"  namee="totalapagar " class="totalapagar form-control"/>
+               <input type="text"  name="totalapagar " class="totalapagar form-control"/>
             </div>
         </div>
          @csrf
