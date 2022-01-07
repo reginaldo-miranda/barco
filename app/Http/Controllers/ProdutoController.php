@@ -240,7 +240,7 @@ class ProdutoController extends Controller
            $data["sessionID"] = $IDSession;
            //dd($data);
        
-           return view("compra/pagar3" , $data) ;
+           return view("compra/pagar5" , $data) ;
         }
      }
    

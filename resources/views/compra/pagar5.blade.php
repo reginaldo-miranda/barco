@@ -29,8 +29,19 @@
               if(ncartao.length >= 6){
                 
                  var prefixcartao = ncartao.substr(0, 6);
+
+                 PagSeguroDirectPayment.getPaymentMethods({
+
+                     amount:$(".totalfinal").val(),
+                     success : function(retorno){
+                         $.each(retorno.paymentMethod.CREDIT_CARD.option, function(i, obj){
+                               $(".meio-pag").append("<span>"+obj.namee +"</span>")
+                         });
+                       
+                     }
+                 })
                      
-                  PagSeguroDirectPayment.getbBrand({
+               /*   PagSeguroDirectPayment.getbBrand({
                     
                       cardBin : prefixcartao,
                       success : function(response){
@@ -42,7 +53,7 @@
                           alert("numero de cartao invalido")
                           $(".bandeira").val("")
                       }
-                  })
+                  })*/
                 
               }
          })
@@ -187,6 +198,7 @@
                 Total a Pagar: 
                <input type="text"  name="totalapagar " class="totalapagar form-control"/>
             </div>
+            <div class ="meio-pag"></div>
         </div>
          @csrf
          <input type="button" value="Pagar" class="btn btn-lg btn-success pagar" />
